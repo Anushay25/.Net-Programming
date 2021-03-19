@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Exception_Handling
+namespace Delegates
 {
+    public delegate void DelEventHandler();
+
     class Program
     {
+        public static event DelEventHandler add;
+
         static void Main(string[] args)
         {
-            try
-            {
-                Console.Write("Enter the first number");
-                int x = int.Parse(Console.ReadLine());
-                Console.Write("Enter the second number");
-                int y = int.Parse(Console.ReadLine());
-                int z = x / y;
-                Console.WriteLine("The Result is:" + z);
-            }
-            catch (DivideByZeroException ex1)
-            {
-                Console.Write(ex1.Message);
-            }
-            catch (FormatException ex2)
-            {
-                Console.Write("input must be numeric");
-            }
-            catch (Exception ex)
-            {
-                Console.Write("ex.message");
-            }
-            Console.WriteLine("end of the program");
-            Console.ReadKey();
+            add += new DelEventHandler(USA);
+            add += new DelEventHandler(India);
+            add += new DelEventHandler(England);
+            add.Invoke();
+
+            Console.ReadLine();
+        }
+        static void USA()
+        {
+            Console.WriteLine("USA");
+        }
+
+        static void India()
+        {
+            Console.WriteLine("India");
+        }
+
+        static void England()
+        {
+            Console.WriteLine("England");
         }
     }
 }
